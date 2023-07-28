@@ -1,6 +1,6 @@
-package factoryMethod.concreteCoffee;
+package abstractFactory.concreteCoffee;
 
-import factoryMethod.Coffee;
+import abstractFactory.Coffee;
 
 public class RobustCoffee extends Coffee {
     @Override
