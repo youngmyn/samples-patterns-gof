@@ -1,5 +1,5 @@
 package state;
 
 public interface State {
-    void speak();
+    void runCross(Human human);
 }
