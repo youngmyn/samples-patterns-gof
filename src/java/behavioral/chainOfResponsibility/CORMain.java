@@ -1,6 +1,8 @@
 package behavioral.chainOfResponsibility;
 
-import behavioral.chainOfResponsibility.concreteHandlers.*;
+import behavioral.chainOfResponsibility.concreteHandlers.Qiwi;
+import behavioral.chainOfResponsibility.concreteHandlers.SberBank;
+import behavioral.chainOfResponsibility.concreteHandlers.TinkoffBank;
 /*
     Цепочка обязанностей – это поведенческий паттерн проектирования, который позволяет передавать
     запросы последовательно по цепочке обработчиков. Каждый последующий обработчик решает,
@@ -49,28 +51,28 @@ import behavioral.chainOfResponsibility.concreteHandlers.*;
     а обработчик последний в цепочке - клиент получает сообщение, мол, недостаточно денег для покупки.
  */
 public class CORMain {
-    public static void main(String[] args) {
-        PaymentTransactionHandler qiwi = new Qiwi(300);
-        PaymentTransactionHandler tinkoff = new TinkoffBank(200);
-        PaymentTransactionHandler sber = new SberBank(100);
+	public static void main(String[] args) {
+		PaymentTransactionHandler qiwi = new Qiwi(300);
+		PaymentTransactionHandler tinkoff = new TinkoffBank(200);
+		PaymentTransactionHandler sber = new SberBank(100);
 
-        sber.setNext(tinkoff);
-        tinkoff.setNext(qiwi);
+		sber.setNext(tinkoff);
+		tinkoff.setNext(qiwi);
 
-        sber.pay(299);//Payed 299 from Qiwi. Balance: 1
+		sber.pay(299);// Payed 299 from Qiwi. Balance: 1
 
-        sber.pay(80);//Payed 80 from SberBank. Balance: 20
+		sber.pay(80);// Payed 80 from SberBank. Balance: 20
 
-        sber.pay(30);//Payed 30 from TinkoffBank. Balance: 170
+		sber.pay(30);// Payed 30 from TinkoffBank. Balance: 170
 
-        sber.pay(200);//Can't pay, not enough money in your accounts
-    }
+		sber.pay(200);// Can't pay, not enough money in your accounts
+	}
 }
 /*
-Преимущества
-    +Уменьшает зависимость между клиентом и обработчиками.
-    +Реализует принцип единственной обязанности.
-    +Реализует принцип открытости/закрытости.
-Недостатки
-    -Запрос может остаться никем не обработанным.
+    Преимущества
+        +Уменьшает зависимость между клиентом и обработчиками.
+        +Реализует принцип единственной обязанности.
+        +Реализует принцип открытости/закрытости.
+    Недостатки
+        -Запрос может остаться никем не обработанным.
  */
